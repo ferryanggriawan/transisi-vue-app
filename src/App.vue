@@ -11,3 +11,9 @@ export default {
   name: "App",
 }
 </script>
+
+<style lang="scss">
+.v-application--wrap {
+  background: #f3f3f3;
+}
+</style>

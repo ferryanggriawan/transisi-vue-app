@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-row class="vh-100" align="center" justify="center">
-      <v-col cols="12" sm="8" md="6" lg="4">
-        <v-form @submit="login">
-          <v-card>
+      <v-col cols="12" sm="8" md="6" lg="5">
+        <v-form ref="loginForm" @submit="login" lazy-validation v-model="form">
+          <v-card class="pa-5">
             <v-card-title>
               Welcome, please login to continue
             </v-card-title>
@@ -25,6 +25,7 @@
                 label="Password"
                 placeholder="ex: 09dka0Ms"
                 required
+                type="password"
               ></v-text-field>
               <v-btn type="submit" class="mt-5" depressed color="primary" block>
                 Login
@@ -53,7 +54,13 @@ export default {
   methods: {
     login(e) {
       e.preventDefault()
-      this.$router.replace("/")
+      if (this.$refs.loginForm.validate()) {
+        const app = this
+        this.callAction(async () => {
+          await app.$store.dispatch("auth/login", app.$data)
+          app.$router.replace("/")
+        }, this)
+      }
     },
   },
 }

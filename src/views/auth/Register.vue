@@ -1,9 +1,14 @@
 <template>
   <v-container>
     <v-row class="vh-100" align="center" justify="center">
-      <v-col cols="12" sm="8" md="6" lg="4">
-        <v-form @submit="login">
-          <v-card>
+      <v-col cols="12" sm="8" md="6" lg="5">
+        <v-form
+          v-model="form"
+          ref="registerForm"
+          @submit="register"
+          lazy-validation
+        >
+          <v-card class="pa-5">
             <v-card-title>
               Please register to continue
             </v-card-title>
@@ -25,6 +30,7 @@
                 label="Password"
                 placeholder="ex: 09dka0Ms"
                 required
+                type="password"
               ></v-text-field>
               <v-btn type="submit" class="mt-5" depressed color="primary" block>
                 Register
@@ -51,9 +57,15 @@ export default {
   },
 
   methods: {
-    login(e) {
+    register(e) {
       e.preventDefault()
-      this.$router.replace("/")
+      if (this.$refs.registerForm.validate()) {
+        const app = this
+        this.callAction(async () => {
+          await app.$store.dispatch("auth/register", app.$data)
+          app.$router.replace("/")
+        }, this)
+      }
     },
   },
 }
