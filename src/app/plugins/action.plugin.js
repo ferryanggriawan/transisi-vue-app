@@ -3,7 +3,7 @@ export default {
     try {
       return await func()
     } catch (error) {
-      throw error
+      throw new Error(`${error.response.status}`)
     }
   },
 
@@ -11,7 +11,7 @@ export default {
     try {
       await func()
     } catch (error) {
-      throw error
+      throw new Error("Failed to proses action store")
     }
   },
 
@@ -19,7 +19,7 @@ export default {
     try {
       await func()
     } catch (error) {
-      throw error
+      return
     }
   },
 }
