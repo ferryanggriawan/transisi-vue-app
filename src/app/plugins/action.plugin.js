@@ -25,12 +25,11 @@ export default {
     try {
       await func()
     } catch (error) {
-      if (error.status == 401) {
-        alert("token expired")
-        context.$router.replace("/auth/login")
-      } else {
-        alert(error.message)
-      }
+      // log context di bawah agar lint tidak error saja
+      // context disini adalah instance dari component vue
+      // memudahkan error handling jika membutuhkan akses ke vuex atau router
+      console.log(context)
+      alert(error.message)
     }
   },
 }

@@ -7,11 +7,14 @@
             <v-card-title>
               Welcome, please login to continue
             </v-card-title>
+
             <v-card-subtitle>
               Lorem ipsum dolor sit.
             </v-card-subtitle>
+
             <v-card-text class="text-center">
               <v-divider class="mb-2"></v-divider>
+
               <v-text-field
                 v-model="email"
                 :rules="[() => !!email || 'This field is required']"
@@ -19,6 +22,7 @@
                 placeholder="ex: john@gmail.com"
                 required
               ></v-text-field>
+
               <v-text-field
                 v-model="password"
                 :rules="[() => !!password || 'This field is required']"
@@ -27,10 +31,13 @@
                 required
                 type="password"
               ></v-text-field>
+
               <v-btn type="submit" class="mt-5" depressed color="primary" block>
                 Login
               </v-btn>
+
               <v-divider class="mt-5 mb-3"></v-divider>
+
               Don't have account?
               <router-link to="/auth/register">Register</router-link>
             </v-card-text>
@@ -55,11 +62,19 @@ export default {
     login(e) {
       e.preventDefault()
       if (this.$refs.loginForm.validate()) {
-        const app = this
         this.callAction(async () => {
-          await app.$store.dispatch("auth/login", app.$data)
-          app.$router.replace("/")
-        }, this)
+          const form = this.createBodyReq()
+
+          await this.$store.dispatch("auth/login", form)
+          this.$router.replace("/")
+        })
+      }
+    },
+
+    createBodyReq() {
+      return {
+        email: this.email,
+        password: this.password,
       }
     },
   },

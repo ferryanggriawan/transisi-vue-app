@@ -60,11 +60,18 @@ export default {
     register(e) {
       e.preventDefault()
       if (this.$refs.registerForm.validate()) {
-        const app = this
         this.callAction(async () => {
-          await app.$store.dispatch("auth/register", app.$data)
-          app.$router.replace("/")
-        }, this)
+          const form = this.createBodyReq()
+          await this.$store.dispatch("auth/register", form)
+          this.$router.replace("/")
+        })
+      }
+    },
+
+    createBodyReq() {
+      return {
+        email: this.email,
+        password: this.password,
       }
     },
   },
