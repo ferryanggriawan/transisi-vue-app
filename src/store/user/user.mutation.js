@@ -11,6 +11,7 @@ export default {
 
   setUser(state, payload) {
     state.user = payload.data
+    state.user.name = `${payload.data.first_name} ${payload.data.last_name}`
   },
 
   reset(state) {

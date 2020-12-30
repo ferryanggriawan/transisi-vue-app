@@ -7,7 +7,10 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title class="pb-1 text-h6">
+          <v-list-item-title
+            @click="$emit('view', user)"
+            class="pb-1 text-h6 cursor-pointer"
+          >
             {{ user.first_name }} {{ user.last_name }}
           </v-list-item-title>
 
@@ -16,10 +19,10 @@
           </v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-          <v-btn icon @click="$emit('edit', user.id)">
+          <v-btn icon @click="$emit('edit', user)">
             <v-icon color="info lighten-1">mdi-pen</v-icon>
           </v-btn>
-          <v-btn icon @click="$emit('delete', user.id)">
+          <v-btn icon @click="$emit('delete', user)">
             <v-icon color="red lighten-1">
               mdi-trash-can-outline
             </v-icon>
@@ -47,4 +50,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+</style>

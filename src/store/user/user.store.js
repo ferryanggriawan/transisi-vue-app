@@ -8,6 +8,15 @@ export default {
     pagination: null,
     user: null,
   },
+  getters: {
+    name: (state) => {
+      if (state.user != null) {
+        return `${state.user.first_name} ${state.user.last_name}`
+      } else {
+        return ""
+      }
+    },
+  },
   mutations: userMutation,
   actions: userAction,
 }
